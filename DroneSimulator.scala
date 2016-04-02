@@ -3,7 +3,7 @@ import scala.util.Random
 import scala.collection.mutable.ArrayBuffer
 import java.io._
 
-class IPGenerator(var sessionCount: Int, var sessionLength: Int) {
+class IPDroneGenerator(var sessionCount: Int, var sessionLength: Int) {
   var sessions = mutable.Map[String, Int]()
 
   def get_ip = {
@@ -35,7 +35,7 @@ class IPGenerator(var sessionCount: Int, var sessionLength: Int) {
   }
 }
 
-class LogGenerator(val ipGenObj: IPGenerator, var messagesCount: Int = 0) {
+class LogGenerator(val ipGenObj: IPDroneGenerator, var messagesCount: Int = 0) {
   val LAT_LONG = mutable.Map(
     "52.40, 16.91, 300m" -> 30,
     "53.40, 16.94, 301m" -> 30,
@@ -90,7 +90,7 @@ class LogGenerator(val ipGenObj: IPGenerator, var messagesCount: Int = 0) {
   }
 }
 
-object RandomHttpLogGen extends App {
+object RandomDroneGen extends App {
   val usage =
     """
 	Usage: random_gen <file_path> <mps>
@@ -115,7 +115,7 @@ object RandomHttpLogGen extends App {
   try {
     println("Drones starting")
     Thread.sleep(1000)
-    new LogGenerator(new IPGenerator(100, 10)).writeMps(outputFileWriter, messagesPerSec)
+    new LogGenerator(new IPDroneGenerator(100, 10)).writeMps(outputFileWriter, messagesPerSec)
   } catch {
     case e: Exception => e.printStackTrace()
   } finally {
@@ -124,4 +124,4 @@ object RandomHttpLogGen extends App {
   }
 }
 
-RandomHttpLogGen.main(args)
+//RandomDroneGen.main(args)
